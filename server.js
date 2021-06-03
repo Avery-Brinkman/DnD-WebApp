@@ -1,56 +1,23 @@
 const express = require('express');
 const http = require('http');
-const fetch = require('node-fetch');
 
 const app = express();
 const httpServer = http.Server(app);
 
 const CONFIG = require('./config/config.json');
-const RAND_API_PARAMS = require('./Random.org_API_Parameters.json');
 const roller = require('./functions/roller.js');
+const routes = require('./routes');
 
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', async (req, res) => {
-    try {
-        const apiRes = await fetch('https://api.random.org/json-rpc/4/invoke', {
-            method: 'POST',
-            body: JSON.stringify({
-                jsonrpc: '2.0',
-                method: 'generateIntegers',
-                params: {
-                    apiKey: CONFIG['Random.org_API_Key'],
-                    n: 1,
-                    min: 1,
-                    max: 20,
-                    replacement: true,
-                },
-                id: 42,
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        });
-        const data = await apiRes.json();
+app.use('/', routes());
 
-        // console.info(apiRes);
-        // console.info();
-        console.info(data);
-    } catch (error) {
-        console.error(error);
-    }
-    res.end();
-});
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-app.post('/test', (req, res) => {
-    console.info(req.body);
-    const parameters = req.body;
-    console.info(
-        `${parameters.nRolls}d${parameters.dN} w/ ${parameters.advantage} advantage`
-    );
-    console.info(parameters.dN);
-    res.end();
-});
+app.post('/test', (req, res) => {});
 
 httpServer.listen(CONFIG.port, () => {
     console.info(`Server running on port ${CONFIG.port}`);
