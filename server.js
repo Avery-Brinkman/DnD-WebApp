@@ -1,6 +1,6 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 const http = require('http');
+const fetch = require('node-fetch');
 
 const app = express();
 const httpServer = http.Server(app);
@@ -12,8 +12,14 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send(fetch('https://api.random.org/json-rpc/4/invoke'));
+app.get('/', async (req, res) => {
+    try {
+        const apiRes = await fetch('https://api.random.org/json-rpc/4/invoke');
+        res.send(apiRes);
+    } catch (error) {
+        console.error(error);
+    }
+    res.end();
 });
 
 app.post('/test', (req, res) => {
