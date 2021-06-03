@@ -3,20 +3,20 @@ const { devRoll } = require('../functions/roller');
 
 const router = express.Router();
 
-const test = require('./test');
+const basicRoute = require('./basic');
+const advancedRoute = require('./advanced');
 
 module.exports = () => {
     router.get('/', async (req, res, next) => {
         try {
-            const params = devRoll();
-            params.push(5);
-            return res.render('index', { params });
+            return res.render('base', { page: 'index', dRoll: devRoll() });
         } catch (error) {
             return next(error);
         }
     });
 
-    router.use('/test', test());
+    router.use('/basic', basicRoute({ page: 'basic' }));
+    router.use('/advanced', advancedRoute({ page: 'advanced' }));
 
     return router;
 };

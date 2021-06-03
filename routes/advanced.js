@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-module.exports = (params) => {
+module.exports = (pageData) => {
     router.get('/', async (req, res, next) => {
         try {
-            return res.send('Also loaded.');
+            return res.render('base', { page: pageData.page });
         } catch (error) {
             return next(error);
         }

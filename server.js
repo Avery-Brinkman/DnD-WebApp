@@ -12,12 +12,13 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', routes());
-
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.post('/test', (req, res) => {});
+app.use('/', routes());
+app.use((err, req, res, next) => {
+    res.render('base', { page: `../error` });
+});
 
 httpServer.listen(CONFIG.port, () => {
     console.info(`Server running on port ${CONFIG.port}`);
