@@ -1,0 +1,15 @@
+{
+    "method": "POST",
+    "body": {
+        "jsonrpc": "2.0",
+        "method": "generateIntegers",
+        "params": {
+            "apiKey": "",
+            "n": 1,
+            "min": 1,
+            "max": 20,
+            "replacement": true
+        },
+        "id": 42
+    }
+}

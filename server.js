@@ -6,6 +6,7 @@ const app = express();
 const httpServer = http.Server(app);
 
 const CONFIG = require('./config/config.json');
+const RAND_API_PARAMS = require('./Random.org_API_Parameters.json');
 const roller = require('./functions/roller.js');
 
 app.use(express.json());
@@ -14,8 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
     try {
-        const apiRes = await fetch('https://api.random.org/json-rpc/4/invoke');
-        res.send(apiRes);
+        const apiRes = await fetch(
+            'https://api.random.org/json-rpc/4/invoke',
+            RAND_API_PARAMS
+        )
+            .then((res) => res.text())
+            .then((text) => console.info(text));
+        console.info(apiRes);
+        console.info(RAND_API_PARAMS.body.params.apiKey);
     } catch (error) {
         console.error(error);
     }
