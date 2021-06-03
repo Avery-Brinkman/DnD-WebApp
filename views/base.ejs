@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <header>
         <h1><a href="/">DnD Discord Bot Online</a></h1>
-        <a href="/basic">Basic Roller</a><br /><a href="/advanced"
-            >Advanced Roller</a
-        ><br />
-        <a href="/e">Create error</a><br />
+        <nav>
+            <a href="/basic">Basic Roller</a>
+            <a href="/advanced">Advanced Roller</a>
+            <a href="/e">Create error</a>
+        </nav>
+    </header>
+
+    <body>
         <%-include(`./pages/${locals.page}`)%>
     </body>
 </html>

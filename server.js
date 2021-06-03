@@ -17,8 +17,8 @@ app.set('views', './views');
 
 app.use('/', routes());
 app.use((req, res, next) => {
-    res.locals;
-    return res.render('base', { page: 'error' });
+    res.status(404);
+    return res.render('base', { page: 'error', err: 404 });
 });
 
 httpServer.listen(CONFIG.port, () => {
