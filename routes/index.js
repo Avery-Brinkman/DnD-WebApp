@@ -6,7 +6,7 @@ const router = express.Router();
 const basicRoute = require('./basic');
 const advancedRoute = require('./advanced');
 
-module.exports = () => {
+module.exports = (pageData) => {
     router.get('/', async (req, res, next) => {
         try {
             return res.render('base', { page: 'index', dRoll: devRoll() });

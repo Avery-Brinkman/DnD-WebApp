@@ -1,4 +1,27 @@
-<p>This is the Basic Roller page.</p>
-<% if(tstMsg){ %>
-<p><%=tstMsg%></p>
-<% }; %>
+<h3>This is the Basic Roller page.</h3>
+<p>
+    <form action="/basic/">
+        <label for="rolls">Number of rolls</label><br>
+        <input type="number" id="rolls" name="rolls" step="1" min="1" value="1" maxlength="3" required><br>  
+        <input type="radio" id="d4" name="dice" value="d4" required>
+        <label for="d4">d4</label>
+        <input type="radio" id="d6" name="dice" value="d6" required>
+        <label for="d6">d6</label>
+        <input type="radio" id="d8" name="dice" value="d8" required>
+        <label for="d8">d8</label>
+        <input type="radio" id="d10" name="dice" value="d10" required>
+        <label for="d10">d10</label>
+        <input type="radio" id="d12" name="dice" value="d12" required>
+        <label for="d12">d12</label>
+        <input type="radio" id="d20" name="dice" value="d20" required>
+        <label for="d20">d20</label><br>
+        <input type="submit" value="Submit">
+    </form>
+</p>
+
+<% if(locals.pageData.dice && locals.pageData.rolls){ %>
+    <p>RESULTS</p>
+    <p><%=locals.pageData.rolls%><%=locals.pageData.dice%></p>
+<% } else if (locals.pageData.dice || locals.pageData.rolls){ %>
+    <p>Missing an input!</p>
+<% } %>

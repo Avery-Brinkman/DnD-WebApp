@@ -16,8 +16,9 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use('/', routes());
-app.use((err, req, res, next) => {
-    res.render('base', { page: `../error` });
+app.use((req, res, next) => {
+    res.locals;
+    return res.render('base', { page: 'error' });
 });
 
 httpServer.listen(CONFIG.port, () => {
