@@ -15,14 +15,27 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
     try {
-        const apiRes = await fetch(
-            'https://api.random.org/json-rpc/4/invoke',
-            RAND_API_PARAMS
-        )
-            .then((res) => res.text())
-            .then((text) => console.info(text));
-        console.info(apiRes);
-        console.info(RAND_API_PARAMS.body.params.apiKey);
+        const apiRes = await fetch('https://api.random.org/json-rpc/4/invoke', {
+            method: 'POST',
+            body: JSON.stringify({
+                jsonrpc: '2.0',
+                method: 'generateIntegers',
+                params: {
+                    apiKey: CONFIG['Random.org_API_Key'],
+                    n: 1,
+                    min: 1,
+                    max: 20,
+                    replacement: true,
+                },
+                id: 42,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await apiRes.json();
+
+        // console.info(apiRes);
+        // console.info();
+        console.info(data);
     } catch (error) {
         console.error(error);
     }
